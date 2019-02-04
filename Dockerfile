@@ -1,6 +1,12 @@
 FROM alpine:3.8
 MAINTAINER Fabian Beuke <mail@beuke.org>
 
+# Set Timezone
+ENV TIMEZONE Asia/Jakarta
+RUN apk update && apk add --no-cache tzdata ca-certificates \
+  && cp /usr/share/zoneinfo/`echo $TIMEZONE` /etc/localtime && \
+  apk del tzdata
+
 RUN apk add --update --no-cache \
   xvfb \
   libgcc libstdc++ libx11 glib libxrender libxext libintl \
